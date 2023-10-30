@@ -127,21 +127,24 @@ export class PathFilter {
   public check(path: string): boolean {
     let include_all = this.rules.length == 0
     let matched = false
-    for (const [rule, exclude] of this.rules) {
-      if (exclude) {
-        if (minimatch(path, rule)) {
-          return false
-        }
-        include_all = true
-      } else {
-        if (minimatch(path, rule)) {
-          matched = true
-          include_all = false
-        } else {
-          return false
-        }
-      }
-    }
+
+    core.info(`this.rules: ${this.rules}`)
+
+    // for (const [rule, exclude] of this.rules) {
+    //   if (exclude) {
+    //     if (minimatch(path, rule)) {
+    //       return false
+    //     }
+    //     include_all = true
+    //   } else {
+    //     if (minimatch(path, rule)) {
+    //       matched = true
+    //       include_all = false
+    //     } else {
+    //       return false
+    //     }
+    //   }
+    // }
     return include_all || matched
   }
 }
