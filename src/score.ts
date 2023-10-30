@@ -49,14 +49,20 @@ export const scorePullRequest = async (
     head: context.payload.pull_request.head.sha
   })
   let {files, commits} = diff.data
+  core.warning(`diff is: ${diff} `);
+
+
   if (files) {
     inputs.diff = files
       .filter(file => options.check_path(file.filename))
       .map(file => file.patch)
       .join('\n\n')
+    core.warning(`input.diff is: ${inputs.diff} `);
   } else {
     inputs.diff = ''
   }
+
+  core.warning(`Input is: ${inputs} `);
 
   if (!files) {
     core.warning(`Skipped: diff.data.files is null`)
